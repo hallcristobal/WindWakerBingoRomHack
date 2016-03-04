@@ -120,7 +120,7 @@ $(BUILD):
 iso: $(BUILD)
 	@echo
 	@echo Building ISO...
-	@./gcit game -q -flush -f FullISO -d rom_hack.iso
+	@./gcit game -q -flush -d rom_hack.iso
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
