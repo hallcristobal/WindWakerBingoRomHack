@@ -109,11 +109,18 @@ export OUTPUT	:=	$(CURDIR)/$(TARGET)
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
 	@cd src && cargo build --release --target powerpc-unknown-linux-gnu && cd ..
+	@rm -f lib/librust.a
+	@cp src/target/powerpc-unknown-linux-gnu/release/librust.a lib/.
 	@rm -fr $(OUTPUT).elf $(OUTPUT).dol
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 	@echo
 	@echo Patching and merging the original game...
 	@cd patcher && cargo build --release && ./target/release/patcher && cd ..
+#---------------------------------------------------------------------------------
+iso: $(BUILD)
+	@echo
+	@echo Building ISO...
+	@./gcit game -q -flush -f FullISO -d rom_hack.iso
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
