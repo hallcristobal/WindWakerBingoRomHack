@@ -29,7 +29,7 @@ impl Assembler {
         let filtered_lines = lines.iter().map(|l| reduce_line_to_code(l)).filter(|l| l.len() > 0);
 
         for line in filtered_lines {
-            if line.ends_with(":") {
+            if line.ends_with(':') {
                 self.program_counter = parse_program_counter_label(line)
                                            .expect("Couldn't parse Address Label");
             } else {
@@ -72,7 +72,7 @@ impl Assembler {
 
 fn reduce_line_to_code(line: &str) -> &str {
     let mut line = line;
-    if let Some(index) = line.find(";") {
+    if let Some(index) = line.find(';') {
         line = &line[..index];
     }
     line.trim()
@@ -81,7 +81,7 @@ fn reduce_line_to_code(line: &str) -> &str {
 fn parse_i64_literal(literal: &str) -> Result<i64, ParseIntError> {
     let mut literal = literal;
     if let Some(index) = literal.find("0x") {
-        let negative = literal.starts_with("-");
+        let negative = literal.starts_with('-');
         literal = &literal[index + 2..];
 
         let factor = if negative {

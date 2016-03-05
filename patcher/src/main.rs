@@ -11,10 +11,10 @@ fn main() {
                 .unwrap()
                 .read_to_string(&mut asm);
 
-    let ref lines = asm.lines().collect::<Vec<_>>();
+    let lines = &asm.lines().collect::<Vec<_>>();
 
     let mut assembler = Assembler::new("../build/intermediate.elf");
-    let ref instructions = assembler.assemble_all_lines(lines);
+    let instructions = &assembler.assemble_all_lines(lines);
 
     let mut original = Vec::new();
     let _ = File::open("../game/original.dol")
